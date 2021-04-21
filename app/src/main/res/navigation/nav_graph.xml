@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/todoListFragment">
+
+    <fragment
+        android:id="@+id/todoListFragment"
+        android:name="nsystem.todojcompose.list.TodoListFragment"
+        android:label="TodoListFragment" >
+        <action
+            android:id="@+id/action_todoListFragment_to_createTodoFragment"
+            app:destination="@id/createTodoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/createTodoFragment"
+        android:name="nsystem.todojcompose.create.CreateTodoFragment"
+        android:label="CreateTodoFragment" >
+        <action
+            android:id="@+id/action_createTodoFragment_to_todoListFragment"
+            app:destination="@id/todoListFragment" />
+    </fragment>
+</navigation>
