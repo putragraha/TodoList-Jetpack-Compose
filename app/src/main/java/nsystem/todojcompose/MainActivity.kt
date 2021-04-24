@@ -13,7 +13,7 @@ class MainActivity : AppCompatActivity() {
         setContent {
             MaterialTheme {
                 val items = listOf(
-                    Todo(1, "Finish Jetpack Compose Project", false, 0),
+                    Todo(1, "Finish Jetpack Compose Project", true, 2),
                     Todo(2, "Finish Report Saldo", false, 0)
                 )
 
