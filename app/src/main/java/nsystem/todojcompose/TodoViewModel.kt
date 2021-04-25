@@ -27,12 +27,14 @@ class TodoViewModel(context: Context): ViewModel() {
     fun addTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.addTask(todo)
+            todoItems = taskRepository.getTasks()
         }
     }
 
     fun removeTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.removeTask(todo)
+            todoItems = taskRepository.getTasks()
         }
     }
 }

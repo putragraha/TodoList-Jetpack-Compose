@@ -1,5 +1,6 @@
 package nsystem.todojcompose.list
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,13 +9,16 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.AlertDialog
 import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,7 +41,10 @@ fun TodoListScreen(
         AddNewTaskButton(onAddNewTaskPressed)
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(items = items) {
-                TodoItem(todo = it)
+                TodoItem(
+                    todoViewModel = todoViewModel,
+                    todo = it,
+                )
                 Divider(
                     modifier = Modifier.padding(
                         start = 8.dp,
@@ -64,10 +71,17 @@ private fun AddNewTaskButton(
 }
 
 @Composable
-private fun TodoItem(todo: Todo) {
+private fun TodoItem(
+    todoViewModel: TodoViewModel?,
+    todo: Todo
+) {
+    val deleteConfirmState = remember { mutableStateOf(false) }
+
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
-        modifier = Modifier.padding(8.dp)
+        modifier = Modifier
+            .padding(8.dp)
+            .clickable { deleteConfirmState.value = true }
     ) {
         val color = when(todo.priority) {
             2 -> Color.Green
@@ -91,7 +105,47 @@ private fun TodoItem(todo: Todo) {
                 .wrapContentWidth(Alignment.End)
                 .weight(1f)
         )
+        if (deleteConfirmState.value) {
+            DeleteConfirmationDialog(
+                todoViewModel = todoViewModel,
+                todo = todo,
+                deleteConfirmState = deleteConfirmState,
+            )
+        }
     }
+}
+
+@Composable
+private fun DeleteConfirmationDialog(
+    todoViewModel: TodoViewModel?,
+    todo: Todo,
+    deleteConfirmState: MutableState<Boolean>
+) {
+    AlertDialog(
+        onDismissRequest = { deleteConfirmState.value = false },
+        title = { Text("Delete Task") },
+        text = {
+            Text("Are you sure you want to delete " +
+                    "\"${todo.description}\"?")
+        },
+        confirmButton = {
+            Button(
+                onClick = {
+                    todoViewModel?.removeTodo(todo)
+                    deleteConfirmState.value = false
+                }) {
+                Text("Yes")
+            }
+        },
+        dismissButton = {
+            Button(
+                onClick = {
+                    deleteConfirmState.value = false
+                }) {
+                Text("No")
+            }
+        }
+    )
 }
 
 @Preview
