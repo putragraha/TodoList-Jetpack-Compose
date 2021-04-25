@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.DropdownMenu
 import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.OutlinedTextField
@@ -21,6 +22,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
+import nsystem.todojcompose.Route
 
 @Composable
 fun CreateTodoScreen() {
@@ -44,6 +49,17 @@ fun CreateTodoScreen() {
             modifier = Modifier.fillMaxWidth()
         ) {
             Text("Add")
+        }
+        Spacer(modifier = Modifier.padding(top = 8.dp))
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier.fillMaxWidth(),
+            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+        ) {
+            Text(
+                text = "Cancel & Back",
+                color = Color.DarkGray
+            )
         }
     }
 }

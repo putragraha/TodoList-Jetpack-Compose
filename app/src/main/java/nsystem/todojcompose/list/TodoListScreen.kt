@@ -3,10 +3,12 @@ package nsystem.todojcompose.list
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.Button
 import androidx.compose.material.Checkbox
 import androidx.compose.material.Divider
 import androidx.compose.material.Icon
@@ -23,8 +25,21 @@ import androidx.compose.ui.unit.dp
 import nsystem.todojcompose.R
 
 @Composable
-fun TodoListScreen(items: List<Todo>) {
+fun TodoListScreen() {
+    val items = listOf(
+        Todo(1, "Finish Jetpack Compose Project", true, 2),
+        Todo(2, "Finish Report Saldo", false, 0)
+    )
+
     Column {
+        Button(
+            onClick = { /* TODO */ },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+        ) {
+            Text("Add New Task")
+        }
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(items = items) {
                 TodoItem(todo = it)
@@ -73,10 +88,5 @@ fun TodoItem(todo: Todo) {
 @Preview
 @Composable
 fun PreviewTodoListScreen() {
-    val items = listOf(
-        Todo(1, "Finish Jetpack Compose Project", true, 2),
-        Todo(2, "Finish Report Saldo", false, 0)
-    )
-
-    TodoListScreen(items)
+    TodoListScreen()
 }
