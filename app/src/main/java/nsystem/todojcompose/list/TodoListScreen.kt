@@ -25,7 +25,9 @@ import androidx.compose.ui.unit.dp
 import nsystem.todojcompose.R
 
 @Composable
-fun TodoListScreen() {
+fun TodoListScreen(
+    onAddNewTaskPressed: () -> Unit
+) {
     val items = listOf(
         Todo(1, "Finish Jetpack Compose Project", true, 2),
         Todo(2, "Finish Report Saldo", false, 0)
@@ -33,7 +35,7 @@ fun TodoListScreen() {
 
     Column {
         Button(
-            onClick = { /* TODO */ },
+            onClick = { onAddNewTaskPressed() },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 16.dp, start = 16.dp, end = 16.dp)
@@ -88,5 +90,5 @@ fun TodoItem(todo: Todo) {
 @Preview
 @Composable
 fun PreviewTodoListScreen() {
-    TodoListScreen()
+    TodoListScreen {}
 }

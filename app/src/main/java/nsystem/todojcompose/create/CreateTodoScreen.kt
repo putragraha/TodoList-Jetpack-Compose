@@ -22,13 +22,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.navigate
-import androidx.navigation.compose.rememberNavController
-import nsystem.todojcompose.Route
 
 @Composable
-fun CreateTodoScreen() {
+fun CreateTodoScreen(
+    onBackPressed: () -> Unit
+) {
     val descriptionState = remember { mutableStateOf("") }
 
     Column(
@@ -52,7 +50,7 @@ fun CreateTodoScreen() {
         }
         Spacer(modifier = Modifier.padding(top = 8.dp))
         Button(
-            onClick = { /* TODO */ },
+            onClick = { onBackPressed() },
             modifier = Modifier.fillMaxWidth(),
             colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
         ) {
@@ -102,5 +100,5 @@ fun PriorityDropdown() {
 @Preview
 @Composable
 fun PreviewCreateTodoScreen() {
-    CreateTodoScreen()
+    CreateTodoScreen {}
 }

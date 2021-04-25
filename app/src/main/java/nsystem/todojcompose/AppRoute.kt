@@ -3,6 +3,7 @@ package nsystem.todojcompose
 import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.navigate
 import androidx.navigation.compose.rememberNavController
 import nsystem.todojcompose.create.CreateTodoScreen
 import nsystem.todojcompose.list.TodoListScreen
@@ -25,7 +26,15 @@ fun AppRoute() {
         navController = navController,
         startDestination = Route.TODO_LIST
     ) {
-        composable(Route.TODO_LIST) { TodoListScreen() }
-        composable(Route.CREATE_TODO) { CreateTodoScreen() }
+        composable(Route.TODO_LIST) {
+            TodoListScreen {
+                navController.navigate(Route.CREATE_TODO)
+            }
+        }
+        composable(Route.CREATE_TODO) {
+            CreateTodoScreen {
+                navController.navigate(Route.TODO_LIST)
+            }
+        }
     }
 }
