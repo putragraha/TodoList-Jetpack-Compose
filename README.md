@@ -8,5 +8,5 @@ Experimental application for building apps using below tech stack.
 
 - Jetpack Compose (Navigation, State)
 - MVVM
-- Flow
+- Coroutine
 - Room

@@ -23,25 +23,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nsystem.todojcompose.R
+import nsystem.todojcompose.TodoViewModel
 
 @Composable
 fun TodoListScreen(
+    todoViewModel: TodoViewModel?,
     onAddNewTaskPressed: () -> Unit
 ) {
-    val items = listOf(
-        Todo(1, "Finish Jetpack Compose Project", true, 2),
-        Todo(2, "Finish Report Saldo", false, 0)
-    )
+    val items = todoViewModel?.todoItems ?: emptyList()
 
     Column {
-        Button(
-            onClick = { onAddNewTaskPressed() },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(top = 16.dp, start = 16.dp, end = 16.dp)
-        ) {
-            Text("Add New Task")
-        }
+        AddNewTaskButton(onAddNewTaskPressed)
         LazyColumn(modifier = Modifier.weight(1f)) {
             items(items = items) {
                 TodoItem(todo = it)
@@ -57,7 +49,21 @@ fun TodoListScreen(
 }
 
 @Composable
-fun TodoItem(todo: Todo) {
+private fun AddNewTaskButton(
+    onAddNewTaskPressed: () -> Unit
+) {
+    Button(
+        onClick = { onAddNewTaskPressed() },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(top = 16.dp, start = 16.dp, end = 16.dp)
+    ) {
+        Text("Add New Task")
+    }
+}
+
+@Composable
+private fun TodoItem(todo: Todo) {
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier.padding(8.dp)
@@ -90,5 +96,5 @@ fun TodoItem(todo: Todo) {
 @Preview
 @Composable
 fun PreviewTodoListScreen() {
-    TodoListScreen {}
+    TodoListScreen(null) {}
 }

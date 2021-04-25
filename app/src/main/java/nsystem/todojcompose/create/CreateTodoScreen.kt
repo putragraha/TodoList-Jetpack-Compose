@@ -15,19 +15,24 @@ import androidx.compose.material.DropdownMenuItem
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import nsystem.todojcompose.TodoViewModel
+import nsystem.todojcompose.list.Todo
 
 @Composable
 fun CreateTodoScreen(
+    todoViewModel: TodoViewModel?,
     onBackPressed: () -> Unit
 ) {
-    val descriptionState = remember { mutableStateOf("") }
+    val descriptionState = rememberSaveable { mutableStateOf("") }
+    val priorityState = rememberSaveable { mutableStateOf(0) }
 
     Column(
         modifier = Modifier
@@ -39,33 +44,45 @@ fun CreateTodoScreen(
             label = { Text(text = "Description") },
             modifier = Modifier.fillMaxWidth()
         )
-        Spacer(modifier = Modifier.padding(top = 8.dp))
-        PriorityDropdown()
-        Spacer(modifier = Modifier.padding(top = 8.dp))
-        Button(
-            onClick = { /* Do something! */ },
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Add")
-        }
-        Spacer(modifier = Modifier.padding(top = 8.dp))
-        Button(
-            onClick = { onBackPressed() },
-            modifier = Modifier.fillMaxWidth(),
-            colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
-        ) {
-            Text(
-                text = "Cancel & Back",
-                color = Color.DarkGray
-            )
-        }
+        Spacer(Modifier.padding(top = 8.dp))
+        PriorityDropdown(priorityState)
+        Spacer(Modifier.padding(top = 8.dp))
+        AddButton(
+            todoViewModel = todoViewModel,
+            descriptionState = descriptionState,
+            priorityState = priorityState
+        )
+        Spacer(Modifier.padding(top = 8.dp))
+        BackAndCancelButton(onBackPressed)
     }
 }
 
 @Composable
-fun PriorityDropdown() {
-    val expandState = remember { mutableStateOf(false) }
-    val selectedState = remember { mutableStateOf(0) }
+private fun AddButton(
+    todoViewModel: TodoViewModel?,
+    descriptionState: MutableState<String>,
+    priorityState: MutableState<Int>
+) {
+    Button(
+        onClick = {
+            val todo = Todo(
+                id = null,
+                description = descriptionState.value,
+                priority = priorityState.value,
+                done = false
+            )
+
+            todoViewModel?.addTodo(todo)
+        },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text("Add")
+    }
+}
+
+@Composable
+private fun PriorityDropdown(priorityState: MutableState<Int>) {
+    val expandState = rememberSaveable { mutableStateOf(false) }
     val priorities = listOf(0, 1, 2)
 
     Box(
@@ -76,7 +93,7 @@ fun PriorityDropdown() {
             .fillMaxWidth()
     ) {
         Text(
-            text = "Priority ${priorities[selectedState.value]}",
+            text = "Priority ${priorities[priorityState.value]}",
             modifier = Modifier
                 .align(Alignment.CenterStart)
                 .padding(start = 16.dp)
@@ -87,7 +104,7 @@ fun PriorityDropdown() {
         ) {
             priorities.forEachIndexed { index, priority ->
                 DropdownMenuItem(onClick = {
-                    selectedState.value = index
+                    priorityState.value = index
                     expandState.value = false
                 }) {
                     Text(text = "Priority $priority")
@@ -97,8 +114,22 @@ fun PriorityDropdown() {
     }
 }
 
+@Composable
+private fun BackAndCancelButton(onBackPressed: () -> Unit) {
+    Button(
+        onClick = { onBackPressed() },
+        modifier = Modifier.fillMaxWidth(),
+        colors = ButtonDefaults.buttonColors(backgroundColor = Color.LightGray)
+    ) {
+        Text(
+            text = "Cancel & Back",
+            color = Color.DarkGray
+        )
+    }
+}
+
 @Preview
 @Composable
 fun PreviewCreateTodoScreen() {
-    CreateTodoScreen {}
+    CreateTodoScreen(null) {}
 }

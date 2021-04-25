@@ -19,7 +19,7 @@ class Route {
 }
 
 @Composable
-fun AppRoute() {
+fun AppRoute(todoViewModel: TodoViewModel?) {
     val navController = rememberNavController()
     
     NavHost(
@@ -27,12 +27,12 @@ fun AppRoute() {
         startDestination = Route.TODO_LIST
     ) {
         composable(Route.TODO_LIST) {
-            TodoListScreen {
+            TodoListScreen(todoViewModel) {
                 navController.navigate(Route.CREATE_TODO)
             }
         }
         composable(Route.CREATE_TODO) {
-            CreateTodoScreen {
+            CreateTodoScreen(todoViewModel) {
                 navController.navigate(Route.TODO_LIST)
             }
         }
