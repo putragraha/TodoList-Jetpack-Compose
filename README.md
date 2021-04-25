@@ -1,6 +1,6 @@
 # Todo List Application
 
-## Prerequisites
+Prerequisites
 
 - Android Studio Canary (at the time the project was created)
 
