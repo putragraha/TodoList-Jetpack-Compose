@@ -31,6 +31,7 @@ fun TodoListScreen(
     onAddNewTaskPressed: () -> Unit
 ) {
     val items = todoViewModel?.todoItems ?: emptyList()
+    todoViewModel?.getTodos()
 
     Column {
         AddNewTaskButton(onAddNewTaskPressed)

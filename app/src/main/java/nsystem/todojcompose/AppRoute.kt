@@ -32,9 +32,15 @@ fun AppRoute(todoViewModel: TodoViewModel?) {
             }
         }
         composable(Route.CREATE_TODO) {
-            CreateTodoScreen(todoViewModel) {
-                navController.navigate(Route.TODO_LIST)
-            }
+            CreateTodoScreen(
+                todoViewModel = todoViewModel,
+                onBackPressed = {
+                    navController.navigate(Route.TODO_LIST)
+                },
+                onAddTaskFinished = {
+                    navController.navigate(Route.TODO_LIST)
+                }
+            )
         }
     }
 }

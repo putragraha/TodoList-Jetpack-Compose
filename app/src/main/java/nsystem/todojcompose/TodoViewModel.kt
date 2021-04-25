@@ -18,17 +18,21 @@ class TodoViewModel(context: Context): ViewModel() {
 
     private val taskRepository = TaskRepository(context)
 
+    fun getTodos() {
+        viewModelScope.launch(Dispatchers.IO) {
+            todoItems = taskRepository.getTasks()
+        }
+    }
+
     fun addTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.addTask(todo)
-            todoItems = taskRepository.getTasks()
         }
     }
 
     fun removeTodo(todo: Todo) {
         viewModelScope.launch(Dispatchers.IO) {
             taskRepository.removeTask(todo)
-            todoItems = taskRepository.getTasks()
         }
     }
 }

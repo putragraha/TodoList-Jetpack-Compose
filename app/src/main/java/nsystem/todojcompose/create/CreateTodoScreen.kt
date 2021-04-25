@@ -29,7 +29,8 @@ import nsystem.todojcompose.list.Todo
 @Composable
 fun CreateTodoScreen(
     todoViewModel: TodoViewModel?,
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onAddTaskFinished: () -> Unit,
 ) {
     val descriptionState = rememberSaveable { mutableStateOf("") }
     val priorityState = rememberSaveable { mutableStateOf(0) }
@@ -50,7 +51,8 @@ fun CreateTodoScreen(
         AddButton(
             todoViewModel = todoViewModel,
             descriptionState = descriptionState,
-            priorityState = priorityState
+            priorityState = priorityState,
+            onAddTaskFinished = onAddTaskFinished,
         )
         Spacer(Modifier.padding(top = 8.dp))
         BackAndCancelButton(onBackPressed)
@@ -61,7 +63,8 @@ fun CreateTodoScreen(
 private fun AddButton(
     todoViewModel: TodoViewModel?,
     descriptionState: MutableState<String>,
-    priorityState: MutableState<Int>
+    priorityState: MutableState<Int>,
+    onAddTaskFinished: () -> Unit,
 ) {
     Button(
         onClick = {
@@ -73,6 +76,7 @@ private fun AddButton(
             )
 
             todoViewModel?.addTodo(todo)
+            onAddTaskFinished()
         },
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -131,5 +135,5 @@ private fun BackAndCancelButton(onBackPressed: () -> Unit) {
 @Preview
 @Composable
 fun PreviewCreateTodoScreen() {
-    CreateTodoScreen(null) {}
+    CreateTodoScreen(null, {}, {})
 }
