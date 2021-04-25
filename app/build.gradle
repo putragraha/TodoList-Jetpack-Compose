@@ -36,7 +36,6 @@ android {
         useIR = true
     }
     buildFeatures {
-        viewBinding true
         compose true
     }
     composeOptions {
