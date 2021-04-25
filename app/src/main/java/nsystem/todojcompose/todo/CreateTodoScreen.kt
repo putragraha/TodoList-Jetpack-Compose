@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.DropdownMenu
@@ -24,8 +25,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import nsystem.todojcompose.TodoViewModel
-import nsystem.todojcompose.list.Todo
+import nsystem.todojcompose.todo.TodoViewModel
+import nsystem.todojcompose.todo.Todo
 
 @Composable
 fun CreateTodoScreen(
@@ -48,7 +49,7 @@ fun CreateTodoScreen(
         )
         Spacer(Modifier.padding(top = 8.dp))
         PriorityDropdown(priorityState)
-        Spacer(Modifier.padding(top = 8.dp))
+        Spacer(Modifier.size(24.dp))
         AddButton(
             todoViewModel = todoViewModel,
             descriptionState = descriptionState,

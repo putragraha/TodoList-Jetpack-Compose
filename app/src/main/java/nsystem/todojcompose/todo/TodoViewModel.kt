@@ -1,4 +1,4 @@
-package nsystem.todojcompose
+package nsystem.todojcompose.todo
 
 import android.content.Context
 import androidx.compose.runtime.getValue
@@ -8,7 +8,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import nsystem.todojcompose.list.Todo
 import nsystem.todojcompose.taskrepository.TaskRepository
 
 class TodoViewModel(context: Context): ViewModel() {

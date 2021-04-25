@@ -1,6 +1,6 @@
 package nsystem.todojcompose.taskrepository
 
-import nsystem.todojcompose.list.Todo
+import nsystem.todojcompose.todo.Todo
 
 fun Todo.toTaskEntity() = TaskEntity(
     id = id,

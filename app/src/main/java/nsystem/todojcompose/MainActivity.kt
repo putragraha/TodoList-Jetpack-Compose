@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.MaterialTheme
 import androidx.lifecycle.ViewModelProviders
 import nsystem.todojcompose.common.ViewModelFactory
+import nsystem.todojcompose.todo.TodoViewModel
 
 class MainActivity : AppCompatActivity() {
 

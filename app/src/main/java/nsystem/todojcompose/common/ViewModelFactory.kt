@@ -3,7 +3,7 @@ package nsystem.todojcompose.common
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import nsystem.todojcompose.TodoViewModel
+import nsystem.todojcompose.todo.TodoViewModel
 import java.lang.IllegalArgumentException
 
 class ViewModelFactory(private val context: Context): ViewModelProvider.Factory {

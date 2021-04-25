@@ -27,7 +27,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import nsystem.todojcompose.R
-import nsystem.todojcompose.TodoViewModel
+import nsystem.todojcompose.todo.TodoViewModel
+import nsystem.todojcompose.todo.Todo
 
 @Composable
 fun TodoListScreen(

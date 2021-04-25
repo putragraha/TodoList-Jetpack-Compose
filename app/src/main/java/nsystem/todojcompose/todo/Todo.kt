@@ -1,4 +1,4 @@
-package nsystem.todojcompose.list
+package nsystem.todojcompose.todo
 
 data class Todo(
     val id: Int?,

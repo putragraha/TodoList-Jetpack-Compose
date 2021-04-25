@@ -1,4 +1,4 @@
-package nsystem.todojcompose
+package nsystem.todojcompose.common
 
 import android.content.Context
 import androidx.room.Database

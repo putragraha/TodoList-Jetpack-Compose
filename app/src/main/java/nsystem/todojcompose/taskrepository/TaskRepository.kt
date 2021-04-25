@@ -1,8 +1,8 @@
 package nsystem.todojcompose.taskrepository
 
 import android.content.Context
-import nsystem.todojcompose.LocalDatabase
-import nsystem.todojcompose.list.Todo
+import nsystem.todojcompose.common.LocalDatabase
+import nsystem.todojcompose.todo.Todo
 
 class TaskRepository(context: Context) {
 
