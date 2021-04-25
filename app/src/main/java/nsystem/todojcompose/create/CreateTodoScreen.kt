@@ -1,6 +1,7 @@
 package nsystem.todojcompose.create
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -93,8 +94,9 @@ private fun PriorityDropdown(priorityState: MutableState<Int>) {
         modifier = Modifier
             .clickable(onClick = { expandState.value = true })
             .height(50.dp)
-            .background(Color.LightGray)
-            .fillMaxWidth()
+            .background(Color.White)
+            .border(2.dp, Color.LightGray)
+            .fillMaxWidth(),
     ) {
         Text(
             text = "Priority ${priorities[priorityState.value]}",
