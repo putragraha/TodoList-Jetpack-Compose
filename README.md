@@ -10,3 +10,4 @@ Experimental application for building apps using below tech stack.
 - MVVM
 - Coroutine
 - Room
+- BONUS: Jetpack Navigation (branch: feature/jetpack-navigation)
