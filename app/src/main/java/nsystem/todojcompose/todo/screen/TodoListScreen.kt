@@ -35,25 +35,12 @@ fun TodoListScreen(
     todoViewModel: TodoViewModel?,
     onAddNewTaskPressed: () -> Unit
 ) {
-    val items = todoViewModel?.todoItems ?: emptyList()
-    todoViewModel?.getTodos()
-
     Column {
         AddNewTaskButton(onAddNewTaskPressed)
-        LazyColumn(modifier = Modifier.weight(1f)) {
-            items(items = items) {
-                TodoItem(
-                    todoViewModel = todoViewModel,
-                    todo = it,
-                )
-                Divider(
-                    modifier = Modifier.padding(
-                        start = 8.dp,
-                        end = 8.dp
-                    )
-                )
-            }
-        }
+        TodoList(
+            todoViewModel = todoViewModel,
+            modifier = Modifier.weight(1f)
+        )
     }
 }
 
@@ -68,6 +55,30 @@ private fun AddNewTaskButton(
             .padding(top = 16.dp, start = 16.dp, end = 16.dp)
     ) {
         Text("Add New Task")
+    }
+}
+
+@Composable
+private fun TodoList(
+    todoViewModel: TodoViewModel?,
+    modifier: Modifier
+) {
+    val items = todoViewModel?.todoItems ?: emptyList()
+    todoViewModel?.getTodos()
+
+    LazyColumn(modifier = modifier) {
+        items(items = items) {
+            TodoItem(
+                todoViewModel = todoViewModel,
+                todo = it,
+            )
+            Divider(
+                modifier = Modifier.padding(
+                    start = 8.dp,
+                    end = 8.dp
+                )
+            )
+        }
     }
 }
 
