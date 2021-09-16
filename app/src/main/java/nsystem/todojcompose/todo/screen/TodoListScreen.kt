@@ -87,13 +87,13 @@ private fun TodoItem(
     todoViewModel: TodoViewModel?,
     todo: Todo
 ) {
-    val deleteConfirmShown = remember { mutableStateOf(false) }
+    val deleteConfirmShownState = remember { mutableStateOf(false) }
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .padding(8.dp)
-            .clickable { deleteConfirmShown.value = true }
+            .clickable { deleteConfirmShownState.value = true }
     ) {
         val color = when(todo.priority) {
             2 -> Color.Green
@@ -120,8 +120,8 @@ private fun TodoItem(
         DeleteConfirmationDialog(
             todoViewModel = todoViewModel,
             todo = todo,
-            deleteConfirmShown = deleteConfirmShown,
-            onDeleteConfirmShownChange = { deleteConfirmShown.value = it }
+            deleteConfirmShownState = deleteConfirmShownState,
+            onDeleteConfirmShownStateChange = { deleteConfirmShownState.value = it }
         )
     }
 }
@@ -130,12 +130,12 @@ private fun TodoItem(
 private fun DeleteConfirmationDialog(
     todoViewModel: TodoViewModel?,
     todo: Todo,
-    deleteConfirmShown: MutableState<Boolean>,
-    onDeleteConfirmShownChange: (Boolean) -> Unit
+    deleteConfirmShownState: MutableState<Boolean>,
+    onDeleteConfirmShownStateChange: (Boolean) -> Unit
 ) {
-    if (deleteConfirmShown.value) {
+    if (deleteConfirmShownState.value) {
         AlertDialog(
-            onDismissRequest = { onDeleteConfirmShownChange(false) },
+            onDismissRequest = { onDeleteConfirmShownStateChange(false) },
             title = { Text("Delete Task") },
             text = {
                 Text(
@@ -147,7 +147,7 @@ private fun DeleteConfirmationDialog(
                 Button(
                     onClick = {
                         todoViewModel?.removeTodo(todo)
-                        onDeleteConfirmShownChange(false)
+                        onDeleteConfirmShownStateChange(false)
                     }) {
                     Text("Yes")
                 }
@@ -155,7 +155,7 @@ private fun DeleteConfirmationDialog(
             dismissButton = {
                 Button(
                     onClick = {
-                        onDeleteConfirmShownChange(false)
+                        onDeleteConfirmShownStateChange(false)
                     }) {
                     Text("No")
                 }
