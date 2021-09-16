@@ -48,7 +48,10 @@ fun CreateTodoScreen(
             modifier = Modifier.fillMaxWidth()
         )
         Spacer(Modifier.padding(top = 8.dp))
-        PriorityDropdown(priorityState)
+        PriorityDropdown(
+            priorityState = priorityState,
+            onPriorityStateChange = { priorityState.value = it }
+        )
         Spacer(Modifier.size(24.dp))
         AddButton(
             todoViewModel = todoViewModel,
@@ -62,7 +65,10 @@ fun CreateTodoScreen(
 }
 
 @Composable
-private fun PriorityDropdown(priorityState: MutableState<Int>) {
+private fun PriorityDropdown(
+    priorityState: MutableState<Int>,
+    onPriorityStateChange: (Int) -> Unit
+) {
     val expandState = rememberSaveable { mutableStateOf(false) }
     val priorities = listOf(0, 1, 2)
 
@@ -86,7 +92,7 @@ private fun PriorityDropdown(priorityState: MutableState<Int>) {
         ) {
             priorities.forEachIndexed { index, priority ->
                 DropdownMenuItem(onClick = {
-                    priorityState.value = index
+                    onPriorityStateChange(index)
                     expandState.value = false
                 }) {
                     Text(text = "Priority $priority")
