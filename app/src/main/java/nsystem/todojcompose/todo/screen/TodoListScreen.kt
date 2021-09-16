@@ -87,13 +87,13 @@ private fun TodoItem(
     todoViewModel: TodoViewModel?,
     todo: Todo
 ) {
-    val deleteConfirmState = remember { mutableStateOf(false) }
+    val deleteConfirmShown = remember { mutableStateOf(false) }
 
     Row(
         horizontalArrangement = Arrangement.SpaceBetween,
         modifier = Modifier
             .padding(8.dp)
-            .clickable { deleteConfirmState.value = true }
+            .clickable { deleteConfirmShown.value = true }
     ) {
         val color = when(todo.priority) {
             2 -> Color.Green
@@ -117,13 +117,12 @@ private fun TodoItem(
                 .wrapContentWidth(Alignment.End)
                 .weight(1f)
         )
-        if (deleteConfirmState.value) {
-            DeleteConfirmationDialog(
-                todoViewModel = todoViewModel,
-                todo = todo,
-                deleteConfirmState = deleteConfirmState,
-            )
-        }
+        DeleteConfirmationDialog(
+            todoViewModel = todoViewModel,
+            todo = todo,
+            deleteConfirmShown = deleteConfirmShown,
+            onDeleteConfirmShownChange = { deleteConfirmShown.value = it }
+        )
     }
 }
 
@@ -131,33 +130,38 @@ private fun TodoItem(
 private fun DeleteConfirmationDialog(
     todoViewModel: TodoViewModel?,
     todo: Todo,
-    deleteConfirmState: MutableState<Boolean>
+    deleteConfirmShown: MutableState<Boolean>,
+    onDeleteConfirmShownChange: (Boolean) -> Unit
 ) {
-    AlertDialog(
-        onDismissRequest = { deleteConfirmState.value = false },
-        title = { Text("Delete Task") },
-        text = {
-            Text("Are you sure you want to delete " +
-                    "\"${todo.description}\"?")
-        },
-        confirmButton = {
-            Button(
-                onClick = {
-                    todoViewModel?.removeTodo(todo)
-                    deleteConfirmState.value = false
-                }) {
-                Text("Yes")
+    if (deleteConfirmShown.value) {
+        AlertDialog(
+            onDismissRequest = { onDeleteConfirmShownChange(false) },
+            title = { Text("Delete Task") },
+            text = {
+                Text(
+                    "Are you sure you want to delete " +
+                            "\"${todo.description}\"?"
+                )
+            },
+            confirmButton = {
+                Button(
+                    onClick = {
+                        todoViewModel?.removeTodo(todo)
+                        onDeleteConfirmShownChange(false)
+                    }) {
+                    Text("Yes")
+                }
+            },
+            dismissButton = {
+                Button(
+                    onClick = {
+                        onDeleteConfirmShownChange(false)
+                    }) {
+                    Text("No")
+                }
             }
-        },
-        dismissButton = {
-            Button(
-                onClick = {
-                    deleteConfirmState.value = false
-                }) {
-                Text("No")
-            }
-        }
-    )
+        )
+    }
 }
 
 @Preview
