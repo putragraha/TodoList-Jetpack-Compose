@@ -1,4 +1,4 @@
-package nsystem.todojcompose.list
+package nsystem.todojcompose.todo.screen
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

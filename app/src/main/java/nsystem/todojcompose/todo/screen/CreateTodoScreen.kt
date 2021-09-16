@@ -1,4 +1,4 @@
-package nsystem.todojcompose.create
+package nsystem.todojcompose.todo.screen
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
