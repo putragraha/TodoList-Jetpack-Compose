@@ -28,9 +28,12 @@ fun AppRoute(todoViewModel: TodoViewModel?) {
         startDestination = Route.TODO_LIST
     ) {
         composable(Route.TODO_LIST) {
-            TodoListScreen(todoViewModel) {
-                navController.navigate(Route.CREATE_TODO)
-            }
+            TodoListScreen(
+                todoViewModel = todoViewModel,
+                onAddNewTaskPressed = {
+                    navController.navigate(Route.CREATE_TODO)
+                }
+            )
         }
         composable(Route.CREATE_TODO) {
             CreateTodoScreen(
