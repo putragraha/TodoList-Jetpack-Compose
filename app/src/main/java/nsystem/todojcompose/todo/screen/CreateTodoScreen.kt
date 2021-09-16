@@ -62,31 +62,6 @@ fun CreateTodoScreen(
 }
 
 @Composable
-private fun AddButton(
-    todoViewModel: TodoViewModel?,
-    descriptionState: MutableState<String>,
-    priorityState: MutableState<Int>,
-    onAddTaskFinished: () -> Unit,
-) {
-    Button(
-        onClick = {
-            val todo = Todo(
-                id = null,
-                description = descriptionState.value,
-                priority = priorityState.value,
-                done = false
-            )
-
-            todoViewModel?.addTodo(todo)
-            onAddTaskFinished()
-        },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        Text("Add")
-    }
-}
-
-@Composable
 private fun PriorityDropdown(priorityState: MutableState<Int>) {
     val expandState = rememberSaveable { mutableStateOf(false) }
     val priorities = listOf(0, 1, 2)
@@ -118,6 +93,31 @@ private fun PriorityDropdown(priorityState: MutableState<Int>) {
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun AddButton(
+    todoViewModel: TodoViewModel?,
+    descriptionState: MutableState<String>,
+    priorityState: MutableState<Int>,
+    onAddTaskFinished: () -> Unit,
+) {
+    Button(
+        onClick = {
+            val todo = Todo(
+                id = null,
+                description = descriptionState.value,
+                priority = priorityState.value,
+                done = false
+            )
+
+            todoViewModel?.addTodo(todo)
+            onAddTaskFinished()
+        },
+        modifier = Modifier.fillMaxWidth()
+    ) {
+        Text("Add")
     }
 }
 
