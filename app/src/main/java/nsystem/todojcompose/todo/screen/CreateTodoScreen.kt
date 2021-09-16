@@ -43,7 +43,7 @@ fun CreateTodoScreen(
     ) {
         OutlinedTextField(
             value = descriptionState.value,
-            onValueChange = { value -> descriptionState.value = value },
+            onValueChange = { descriptionState.value = it },
             label = { Text(text = "Description") },
             modifier = Modifier.fillMaxWidth()
         )
